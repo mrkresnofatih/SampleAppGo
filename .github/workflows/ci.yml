@@ -1,4 +1,4 @@
-name: Publish Message To Pusher
+name: Upload Hello.go to S3
 on:
   push:
     branches:
@@ -6,16 +6,17 @@ on:
 
 jobs:
   publish_message:
-    name: Publish GHAction Run Number
+    name: Upload Hello.go File to S3
     runs-on: ubuntu-latest
     steps:
       - name: checkout source code
         uses: actions/checkout@v1
-      - name: publish message to pusher
-        uses: mrkresnofatih/gha-trigger-pusher-on-commit@master
+      - name: publish file to s3
+        uses: mrkresnofatih/gha-upload-file-to-s3@master
         with:
-          GH_TOKEN: ${{secrets.GH_TOKEN}}
-          PUSHER_STRING: ${{ secrets.PUSHER_APPID }}-${{secrets.PUSHER_KEY}}-${{secrets.PUSHER_SECRET}}-${{secrets.PUSHER_CLUSTER}}
-          PUSHER_CNL: sample-channel
-          PUSHER_EVT: sample-event
-          PUSHER_MSG: commit is done
+          FILE_PATH: ./Hello.go
+          AWS_KEY: ${{secrets.AWS_KEY}}
+          AWS_SECRET: ${{secrets.AWS_SECRET}}
+          AWS_REGION: ap-southeast-1
+          BUCKET_URL: sg-lambda-store/rml
+          FILE_NAME: Hello.go
