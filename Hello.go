@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello World, My Name is Golang")
+	fmt.Println("Hello World, My Name is Go Language!")
 
 	// declare variables
 	var myName string = "myself"
