@@ -1,0 +1,20 @@
+name: Publish Message To Pusher
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish_message:
+    name: Publish GHAction Run Number
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source code
+        uses: actions/checkout@v1
+      - name: publish message to pusher
+        uses: mrkresnofatih/gha-trigger-pusher-on-commit@master
+        with:
+          PUSHER_STRING: ${{ secrets.PUSHER_APPID }}-${{secrets.PUSHER_KEY}}-${{secrets.PUSHER_SECRET}}-${{secrets.PUSHER_CLUSTER}}
+          PUSHER_CNL: sample-channel
+          PUSHER_EVT: sample-event
+          PUSHER_MSG: commit is done
